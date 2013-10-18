@@ -1,6 +1,8 @@
+import json
 import os
 import pickle
 import tripit
+import webbrowser
 
 CREDENTIAL_CACHE = '.credential_cache'
 
@@ -27,6 +29,10 @@ def get_tripit_credentials():
         #open url in browser and authorize
         url = 'https://www.tripit.com/oauth/authorize?oauth_token='+ request_token['oauth_token']+'&oauth_callback=http%3A%2F%2Fwww.tripit.com%2Fhome'
         print "open "+url+" and authorize the app"
+        try:
+            webbrowser.open_new_tab(url)
+        except:
+            pass
         done = raw_input('Hit enter when complete: ')
 
         #get valid access token from request
@@ -45,7 +51,7 @@ def get_tripit_credentials():
     return valid_token
 
 def load_dopplr_file():
-    username = raw_input('Dopplr Username: ')
+    username = raw_input('Dopplr username: ')
     f = open('export-%s/full_data.json' % username,'r')
     data = json.loads(f.read())
     return data
