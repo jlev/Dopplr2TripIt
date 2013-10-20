@@ -106,13 +106,15 @@ def main():
 
     d = load_dopplr_file()
     for trip in d['trips']:
-        print "loading trip to %s from %s to %s via %s" % \
+        print ("loading trip to %s from %s to %s via %s: " % \
             (trip['city']['name'],
              trip['start'],trip['finish'],
-             trip['outgoing_transport_type'])
+             trip['outgoing_transport_type'])).encode('utf-8'),
         result = post_to_tripit(tripit_api,trip)
         if result:
             print "posted"
+        else:
+            print "failed"
 
 if __name__=="__main__":
     main()
